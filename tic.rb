@@ -65,7 +65,11 @@ elsif (@tab.collect{|v| v[y]} == win_p1)
 end
   
 #diagonal
-puts @tab.collect {|v| arr[v][v]}
+if((0...3).collect {|v| @tab[v][v]} == win_p1)
+  puts "P1 es el vencedor...\n" 
+elsif ((0...3).collect {|v| @tab[v][v]} == win_p2)
+  puts "P2 es el vencedor...\n"   
+end
 
 end  
 
@@ -91,7 +95,7 @@ end
 loop do
    d.impArr
    opc = d.instruc
-   d.is_number? opc
+   break if d.is_number? opc == false
    d.user(opc)
    break if opc == 'x'
 end
