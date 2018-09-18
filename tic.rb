@@ -14,6 +14,10 @@ def llenArr
   end
 end
 
+def is_number? string
+  true if Integer(string) rescue false
+end
+
 def impArr
   for i in (0 ... @tab.size)
     if i == 0
@@ -26,17 +30,11 @@ def impArr
   for i in (0...@tab.size)
     print "   #{i}   "
     for j in (0...@tab.size)
-   #   if @tab[i][j] == -1
-   #       print "█\s"       
-   #     else
-   #       print "#{@tab[i][j]}\s" 
-   #   end
-      case @tab[i][j]
+     case @tab[i][j]
       when -1 then print "█\s"
       when 1 then  print "X\s" 
       when 2 then  print "O\s" 
       end
-
     end
     print "\n"
   end
@@ -45,14 +43,35 @@ end
 def instruc
   print "Introduce las coordenadas (x,y) ej. (0,0)\n"
   print "Es el turno del jugador #{@player}\s"
-  print  "Preciona x para salir \n"
+  print  "Para salir preciona la tecla 'x'  \n"
   op = gets.chomp
 end
+
+def win(x,y)
+win_p1 = [1,1,1]
+win_p2 = [2,2,2]
+# fila
+if (@tab[x] == win_p1) == true
+  puts "P1 es el vencedor...\n" 
+elsif (@tab[x] == win_p2) == true
+  puts "P2 es el vencedor...\n" 
+end
+
+#columna
+if (@tab.collect{|v| v[y]} == win_p2)
+  puts "P1 es el vencedor...\n" 
+elsif (@tab.collect{|v| v[y]} == win_p1)
+  puts "P2 es el vencedor...\n" 
+end
   
+#diagonal
+puts @tab.collect {|v| arr[v][v]}
+
+end  
+
 def user(pos)
    x = pos[0].to_i
    y = pos[1].to_i
-   puts @player
 if @player == 1
      p = 1
      @player = 2
@@ -61,16 +80,10 @@ if @player == 1
      @player = 1
   end 
   @tab[x][y] = p
-
+win(x,y)
 end
 
 end
-
-
- # puts "Ancho de tablero, recuerda es nxn "
- # n = gets.chomp
- # n = n.to_i
- #  tab = Array.new(3) { Array.new }
 
   d = Tic.new
   d.init
@@ -78,10 +91,7 @@ end
 loop do
    d.impArr
    opc = d.instruc
+   d.is_number? opc
    d.user(opc)
    break if opc == 'x'
 end
-
-
-
-
