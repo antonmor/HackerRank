@@ -70,7 +70,13 @@ if((0...3).collect {|v| @tab[v][v]} == win_p1)
 elsif ((0...3).collect {|v| @tab[v][v]} == win_p2)
   puts "P2 es el vencedor...\n"   
 end
-
+#diagonal inv
+if ((0...3).collect {|i| @tab[i][-i-1] } == win_p1)
+  puts "P1 es el vencedor...\n" 
+elsif ((0...3).collect {|i| @tab[i][-i-1] } == win_p2)
+  puts "P2 es el vencedor...\n"   
+end
+ 
 end  
 
 def user(pos)
